@@ -12,8 +12,13 @@ const eqArrays = function(array1, array2) {
     ans = false;
   } else {
     for (let i = 0; i < array1.length; i++) {
-      if (array1[i] !== array2[i]) {
-        ans = false;
+      if (Array.isArray(array1[i]) && Array.isArray(array2[i])) {
+        if (!eqArrays(array1[i],array2[i])) {
+          ans = false;
+        }
+      } else {
+        if (array1[i] !== array2[i])
+          ans = false;
       }
     }
   }
@@ -21,4 +26,11 @@ const eqArrays = function(array1, array2) {
 };
 
 
+
+
+
 console.log(assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true));
+console.log(eqArrays([[2, 3], [4]], [[2, 3], [4]]));
+console.log(eqArrays([[2, 3], [4]], [[2, 3], [4, 5]]));
+
+console.log(eqArrays([[2, 3], [4]], [[2, 3], 4]));
